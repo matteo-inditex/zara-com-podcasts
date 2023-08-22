@@ -1,13 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link as ReactRouterLink } from "react-router-dom";
+import { Heading, Stack } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react'
+
 
 interface Props {
 }
 const RootLayout = ({ }: Props) => {
-    return <div>
-        <h1>Podcaster</h1>
+    return <Stack margin={16} spacing={8}>
+        <Heading><ChakraLink as={ReactRouterLink} to={"/"} >Podcaster</ChakraLink></Heading>
         <Outlet />
-    </div>
+    </Stack>
 }
 
 export default RootLayout;
-
