@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import Podcast from "./views/Podcast";
 import Episode from "./views/Episode";
-import Home from "./views/Home";
+import Home from "./views/Home/Home";
 
 const Routing = () => {
     return <Routes >

@@ -9,7 +9,7 @@ interface Props {
     subtitle: string
 }
 export const PodcastOverviewCard = ({ img: { src, alt }, title, subtitle }: Props) => {
-    return <Card width='3xs' bg="#f9f9f9">
+    return <Card bg="#f9f9f9">
         <CardBody>
             <Center>
                 <Image
