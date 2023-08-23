@@ -1,7 +1,5 @@
-import { ID } from "./services/types/getPodcastsAPI"
-
 export interface PodcastOverview {
-    id: ID,
+    id: string,
     name: {
         label: string
     },
