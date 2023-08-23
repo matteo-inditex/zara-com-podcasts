@@ -4,13 +4,13 @@ import PodcastOverviewCard from "../../components/PodcastOverviewCard";
 import { Box, Center, Input, Stack, Grid, GridItem } from '@chakra-ui/react'
 import { getFilteredPodcasts } from "./query/query-utils";
 import { Text } from '@chakra-ui/react'
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Spinner } from '@chakra-ui/react'
 import { Link as ReactRouterLink } from "react-router-dom";
 
 
 const Home = () => {
-    const { data, isLoading } = useQuery("podcastsOverviews", getPodcasts, {
+    const { data, isLoading } = useQuery(["podcastsOverviews"], getPodcasts, {
         staleTime: 1000 * 60 * 60 * 24,
         cacheTime: 1000 * 60 * 60 * 24
     });
