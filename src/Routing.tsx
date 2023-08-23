@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
-import Podcast from "./views/Podcast";
+import Podcast from "./views/Podcast/Podcast";
 import Episode from "./views/Episode";
 import Home from "./views/Home/Home";
 

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { getPodcasts } from "../../services/podcasts-service";
-import PodcastOverviewCard from "../../components/PodcastOverviewCard";
+import PodcastOverviewCard from "./components/PodcastOverviewCard";
 import { Box, Center, Input, Stack, Grid, GridItem } from '@chakra-ui/react'
 import { getFilteredPodcasts } from "./query/query-utils";
 import { Text } from '@chakra-ui/react'
