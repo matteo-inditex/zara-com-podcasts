@@ -15,6 +15,6 @@ export interface Episode {
     title: string,
     duration: string,
     date: string
-    playableUrl: string,
-    description: string
+    audioUrl: string | null,
+    description: string,
 }

@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, Image, Center, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
-import { PodcastDetails } from "../../../services/types/mapped";
+import { PodcastDetails } from "../services/types/mapped";
 interface Props {
     podcastDetails: PodcastDetails
 }

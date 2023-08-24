@@ -5,23 +5,26 @@ import {
     Th,
     Td,
     TableContainer,
-    Text
+    Text,
+    Link as ChakraLink
 } from "@chakra-ui/react";
-import { Episode } from "../../../services/types/mapped";
+import { Episode } from "../services/types/mapped";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 
 interface Props {
+    podcastId: string,
     episodes: Episode[]
 }
-const EpisodesTable = ({ episodes }: Props) => {
+const EpisodesTable = ({ podcastId, episodes }: Props) => {
     return <VStack marginLeft={"20"} >
-        <Card width={1000} marginBottom={5}>
+        <Card width={"full"} marginBottom={5}>
             <CardBody>
                 <Heading fontSize={"2xl"}>Episodes: {episodes.length}</Heading>
             </CardBody>
         </Card>
-        <TableContainer width={1000}>
-            <Table variant='striped'>
+        <TableContainer width={"full"} maxWidth={800}>
+            <Table variant='striped' size={"sm"}>
                 <Thead >
                     <Tr>
                         <Th textTransform={"capitalize"}><Text>Title</Text></Th>
@@ -31,7 +34,7 @@ const EpisodesTable = ({ episodes }: Props) => {
                 </Thead>
                 <Tbody>
                     {episodes.map((episode) => <Tr key={episode.id} >
-                        <Td ><Text overflowWrap={"break-word"} >{episode.title}</Text></Td>
+                        <Td ><ChakraLink as={ReactRouterLink} to={"/podcast/" + podcastId + "/episode/" + episode.id}><Text maxWidth={"2xl"} whiteSpace={"initial"}>{episode.title}</Text></ChakraLink></Td>
                         <Td><Text>{episode.date}</Text></Td>
                         <Td> <Text>{episode.duration}</Text></Td>
                     </Tr>)}
