@@ -7,7 +7,7 @@ An app that lets you view and play podcasts from iTunes.
 Tip: install nvm and get the current LTS node version
 
 ## Run Locally
-NOTE: You need inditex .npmrc configuration set up correctly because the project was created with that configuration even if no private package is used.
+~~NOTE: You need inditex .npmrc configuration set up correctly because the project was created with that configuration even if no private package is used.~~ FIXED by updating deps.
 
 Clone the project
 
