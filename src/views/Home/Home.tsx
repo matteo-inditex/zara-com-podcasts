@@ -12,7 +12,6 @@ import { Link as ReactRouterLink } from "react-router-dom";
 const Home = () => {
     const { data, isLoading } = useQuery(["podcastsOverviews"], getPodcasts);
     const [query, setQuery] = useState("")
-
     const filteredPodcasts = useMemo(() => {
         if (data === undefined) {
             return [];
@@ -32,7 +31,7 @@ const Home = () => {
                     <Center>
                         <ReactRouterLink to={"/podcast/" + podcast.id}>
                             <PodcastOverviewCard img={{
-                                src: podcast.image[podcast.image.length - 1].label,
+                                src: podcast.image.label,
                             }} title={podcast.name.label} subtitle={"Author: " + podcast.artist.label} />
                         </ReactRouterLink>
 

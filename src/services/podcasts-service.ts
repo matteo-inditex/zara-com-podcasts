@@ -1,23 +1,17 @@
-import { GetPodcastsResponseJSON } from "./types/responses/getPodcastsAPI"
-import { getJSON, getXML } from "./utils/fetch-api";
-import { PodcastOverview } from "../types";
-import { mapXMLtoPodcastDetails } from "./utils/mappers";
-import { PodcastDetails } from "./types/mapped";
-import { Contents, GetPodcastResponseJSON } from "./types/responses/getPodcastAPI";
+import { GetPodcastsResponseJSON } from "./types/responses/getPodcastEpisodesAPI"
+import { getJSON } from "./utils/fetch-api";
+import { IPodcast } from "../types";
+import { Contents, GetPodcastEpisodesResponseJSON } from "./types/responses/getPodcastAPI";
+import { IEpisode } from "./types/mapped";
+import { mapToEpisodes, mapToIPodcasts } from "./utils/mappers";
 
-export const getPodcasts = async (): Promise<PodcastOverview[]> => {
-    const response = await getJSON<GetPodcastsResponseJSON>("https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json");
-    return response.feed.entry.map(entry => ({
-        id: entry.id.attributes["im:id"],
-        name: entry["im:name"],
-        image: entry["im:image"],
-        artist: entry["im:artist"]
-    }));
+export const getPodcasts = async (): Promise<IPodcast[]> => {
+    const data = await getJSON<GetPodcastsResponseJSON>("https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json");
+    return mapToIPodcasts(data);
 }
 
-export const getPodcast = async (id: string): Promise<PodcastDetails> => {
-    const response = await getJSON<GetPodcastResponseJSON>("https://api.allorigins.win/get?url=" + encodeURIComponent("https://itunes.apple.com/lookup?id=" + id))
-    const feedUrl = (JSON.parse(response.contents) as Contents).results[0].feedUrl;
-    const xmlDoc = await getXML(feedUrl)
-    return mapXMLtoPodcastDetails(xmlDoc);
+export const getPodcastEpisodes = async (id: string): Promise<IEpisode[]> => {
+    const url = `https://itunes.apple.com/lookup?id=${id}&country=US&media=podcast&entity=podcastEpisode&limit=100`
+    const data = await getJSON<GetPodcastEpisodesResponseJSON>(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+    return mapToEpisodes((JSON.parse(data.contents) as Contents).results)
 }

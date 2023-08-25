@@ -1,35 +1,51 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPodcast } from "../../services/podcasts-service";
+import { getPodcastEpisodes, getPodcasts } from "../../services/podcasts-service";
 import { useParams } from "react-router-dom";
 import { useMemo } from "react";
-import { Episode } from "../../services/types/mapped";
+import { IEpisode } from "../../services/types/mapped";
 import PodcastDetailsCard from "../../components/PodcastDetailsCard";
-import { Wrap } from "@chakra-ui/react";
+import { HStack, Spinner, Wrap, Text } from "@chakra-ui/react";
 import EpisodeCard from "../../components/EpisodeCard";
+import { Link as ReactRouterLink } from "react-router-dom";
+
 
 const Episode = () => {
-    const { podcastId, episodeId } = useParams<{ podcastId: string, episodeId: string }>()
-    const { data } = useQuery(["podcastDetails-" + podcastId], () => getPodcast(podcastId!));
+    const { podcastId, episodeTrackId } = useParams<{ podcastId: string, episodeTrackId: string }>()
+    const { data: episodes, isLoading: isLoadingEpisodes, isFetching: isFetchingEpisodes } = useQuery(["podcast-" + podcastId + "-episodes"], () => getPodcastEpisodes(podcastId!));
+    const { data: podcasts, isLoading: isLoadingPodcasts, isFetching: isFetchingPodcasts } = useQuery(["podcasts"], getPodcasts);
+
+    const podcast = useMemo(() => (podcasts?.find(p => p.id === podcastId) || null), [podcasts])
     const episode = useMemo(() => {
-        if (data === undefined) {
+        let descriptionHTMLstring = ""
+
+        if (episodes === undefined) {
             return null;
         }
-        const foundEpisode = data.episodes.find((episode: Episode) => episode.id === episodeId);
+        const foundEpisode = episodes.find((episode: IEpisode) => episode.trackId === parseInt(episodeTrackId!));
+
         if (foundEpisode === undefined) {
             return null
         }
-        const descriptionElement = new window.DOMParser().parseFromString(foundEpisode.description, "text/html").querySelector("body")
-        const descriptionHTMLstring = descriptionElement === null ? "" : descriptionElement.innerHTML
-        return {
-            title: foundEpisode.title,
-            descriptionHTMLstring,
-            audioUrl: foundEpisode.audioUrl
+        if (foundEpisode.description !== undefined) {
+            const descriptionElement = new window.DOMParser().parseFromString(foundEpisode.description, "text/html").querySelector("body")
+            descriptionHTMLstring = descriptionElement === null ? "" : descriptionElement.innerHTML
         }
-    }, [data])
-    return <>{data !== undefined && podcastId !== undefined && <Wrap spacing={"100px"}>
-        <PodcastDetailsCard podcastDetails={data} />
-        {episode !== null && <EpisodeCard {...episode} />}
-    </Wrap>}</>
+
+        return {
+            trackName: foundEpisode.trackName,
+            descriptionHTMLstring,
+            media: foundEpisode.media
+        }
+    }, [podcasts, episodes])
+    return <>
+        {(isLoadingEpisodes || isFetchingEpisodes) && <HStack><Text size='md' color={"#737373"}>
+            Loading Episodes </Text> <Spinner size={"sm"} color="#737373" /></HStack>}
+        {(isLoadingPodcasts || isFetchingPodcasts) && <HStack><Text size='md'>
+            Loading Podcasts </Text><Spinner size={"sm"} /></HStack>}
+        {episode !== null && <Wrap spacing={"100px"}>
+            {podcast !== null && <ReactRouterLink to={"/podcast/" + podcastId}><PodcastDetailsCard podcast={podcast} /></ReactRouterLink>}
+            {episode !== null && <EpisodeCard trackName={episode.trackName} media={episode.media} descriptionHTMLstring={episode.descriptionHTMLstring} />}
+        </Wrap>}</>
 }
 
 export default Episode

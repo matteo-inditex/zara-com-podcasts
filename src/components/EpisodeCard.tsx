@@ -1,17 +1,18 @@
 import { Card, CardBody, VStack, Heading, Text } from "@chakra-ui/react";
+import { Media } from "../services/types/mapped";
 
 interface Props {
-    title: string,
+    trackName: string,
     descriptionHTMLstring: string,
-    audioUrl: string | null
+    media: Media
 }
-const EpisodeCard = ({ title, descriptionHTMLstring, audioUrl }: Props) => {
-    return <Card maxWidth={800}>
+const EpisodeCard = ({ trackName, descriptionHTMLstring, media }: Props) => {
+    return <Card maxWidth={800} height={"fit-content"}>
         <CardBody >
             <VStack mt='6' spacing='3'>
-                <Heading size='md' >{title}</Heading>
+                <Heading size='md' marginRight={"auto"}>{trackName}</Heading>
                 <Text maxWidth={750}><div dangerouslySetInnerHTML={{ __html: descriptionHTMLstring }}></div></Text>
-                {audioUrl !== null && <audio controls src={audioUrl} />}
+                {media.url !== undefined && <audio controls src={media.url} />}
             </VStack>
         </CardBody>
     </Card>

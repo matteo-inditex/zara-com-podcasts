@@ -1,6 +1,6 @@
-import { PodcastOverview } from "../../../types";
+import { IPodcast } from "../../../types";
 
 export interface Query {
     searchText: string,
-    results: PodcastOverview[]
+    results: IPodcast[]
 }

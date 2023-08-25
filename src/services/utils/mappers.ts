@@ -1,47 +1,53 @@
-import { Episode, PodcastDetails } from "../types/mapped"
+import { IPodcast } from "../../types";
+import { IEpisode } from "../types/mapped"
+import { Result } from "../types/responses/getPodcastAPI";
+import { GetPodcastsResponseJSON } from "../types/responses/getPodcastEpisodesAPI";
 
-export function mapXMLtoPodcastDetails(xmlDoc: Document): PodcastDetails {
-    const podcast = {
-        title: xmlDoc.getElementsByTagName("title")[0].textContent || "",
-        author: xmlDoc.getElementsByTagName("itunes:author")[0].textContent || "",
-        image: {
-            url: xmlDoc.getElementsByTagName("image")[0].getElementsByTagName("url")[0].textContent,
-            title: xmlDoc.getElementsByTagName("image")[0].getElementsByTagName("title")[0].textContent || ""
-        },
-        description: xmlDoc.getElementsByTagName("description")[0].textContent || "", // take innerHTML
-        episodes: mapItemsToEpisodes(xmlDoc.getElementsByTagName("item"))
-    }
-    return podcast
-
+function getParsedReleaseDate(dateText: string) {
+    return new Date(dateText).toLocaleDateString("es-es")
 }
 
-function mapItemsToEpisodes(elements: HTMLCollectionOf<Element>): Episode[] {
-    return Array.from(elements).map(element => ({
-        id: element.getElementsByTagName("guid")[0].textContent || "",
-        title: element.getElementsByTagName("title")[0].textContent || "",
-        duration: parseDuration(element.getElementsByTagName("itunes:duration")[0]?.textContent || null), // in seconds,
-        date: parseDate(element.getElementsByTagName("pubDate")[0].textContent),
-        audioUrl: element.getElementsByTagName("enclosure")[0]?.getAttribute("url") || null,
-        description: element.getElementsByTagName("description")[0].innerHTML
+function padTo2Digits(number: number) {
+    return number.toString().padStart(2, '0');
+}
+
+function convertMsToHMS(milliseconds: number) {
+    const seconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(seconds / 3600);
+    let remainingSeconds = seconds - hours * 3600;
+    const minutes = Math.floor(remainingSeconds / 60);
+    remainingSeconds = remainingSeconds - minutes * 60;
+
+    const showHours = hours > 0 ? padTo2Digits(hours) + ":" : ""
+    const showMinutes = hours > 0 || minutes > 0 ? padTo2Digits(minutes) + ":" : ""
+    const showSeconds = hours > 0 || minutes > 0 ? padTo2Digits(remainingSeconds) : remainingSeconds;
+    return showHours + showMinutes + showSeconds;
+}
+
+export function mapToIPodcasts(podcasts: GetPodcastsResponseJSON): IPodcast[] {
+    return podcasts.feed.entry.map(entry => ({
+        id: entry.id.attributes["im:id"],
+        name: entry["im:name"],
+        image: entry["im:image"][entry["im:image"].length - 1],
+        artist: entry["im:artist"],
+        summary: {
+            label: entry["summary"].label
+        }
     }))
 }
 
-function parseDuration(duration: string | null) {
-    if (duration === null) {
-        return "";
-    }
-    if (duration.includes(":")) {
-        return duration
-    }
-    const durationInSecondsInteger = parseInt(duration)
-    const minutes = Math.floor(durationInSecondsInteger / 60);
-    const seconds = durationInSecondsInteger - (minutes * 60)
-    return minutes + ":" + seconds
-}
-
-function parseDate(dateText: string | null) {
-    if (dateText === null) {
-        return ""
-    }
-    return new Date(dateText).toLocaleDateString("es-es")
+export function mapToEpisodes(results: Result[]): IEpisode[] {
+    return results.map(item => ({
+        guid: item.episodeGuid,
+        trackId: item.trackId,
+        trackName: item.trackName,
+        media: {
+            url: item.episodeUrl,
+            fileExtension: item.episodeFileExtension,
+            contentType: item.episodeContentType
+        },
+        releaseDate: getParsedReleaseDate(item.releaseDate),
+        description: item.description,
+        duration: convertMsToHMS(item.trackTimeMillis),
+    }))
 }

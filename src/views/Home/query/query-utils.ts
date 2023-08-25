@@ -1,6 +1,6 @@
-import { PodcastOverview } from "../../../types";
+import { IPodcast } from "../../../types";
 
-export const getFilteredPodcasts = (searchText: string, podcastsOverview: PodcastOverview[] | undefined) => {
+export const getFilteredPodcasts = (searchText: string, podcastsOverview: IPodcast[] | undefined) => {
     if (!Array.isArray(podcastsOverview)) {
         return [];
     }

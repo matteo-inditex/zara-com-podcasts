@@ -1,20 +1,17 @@
+import { EpisodeContentType, EpisodeFileExtension } from "./responses/getPodcastAPI";
 
-export interface PodcastDetails {
-    title: string,
-    description: string,
-    author: string,
-    image: {
-        url: string | null,
-        title: string
-    },
-    episodes: Episode[]
+export interface IEpisode {
+    guid?: string,
+    trackName: string,
+    duration: string,
+    trackId: number,
+    media: Media
+    description?: string,
+    releaseDate: string,
 }
 
-export interface Episode {
-    id: string,
-    title: string,
-    duration: string,
-    date: string
-    audioUrl: string | null,
-    description: string,
+export interface Media {
+    url?: string,
+    fileExtension?: EpisodeFileExtension,
+    contentType?: EpisodeContentType
 }

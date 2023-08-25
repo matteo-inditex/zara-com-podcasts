@@ -1,27 +1,27 @@
 import { Box, Card, CardBody, Image, Center, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
-import { PodcastDetails } from "../services/types/mapped";
+import { IPodcast as IPodcast } from "../types";
 interface Props {
-    podcastDetails: PodcastDetails
+    podcast: IPodcast
 }
-export const PodcastDetailsCard = ({ podcastDetails: { title, description, author, image } }: Props) => {
+export const PodcastDetailsCard = ({ podcast: { artist, image, name, summary } }: Props) => {
     return <Card maxWidth={300} height={"fit-content"}>
         <CardBody>
             <Stack divider={<StackDivider />} spacing='4'>
                 <Box>
                     <Center>
-                        {image.url !== null && <Image maxWidth={200}
-                            src={image.url}
-                            alt={image.title}
+                        {image !== null && <Image maxWidth={200}
+                            src={image.label}
+                            alt={"Podcast Thumbnail"}
                             borderRadius='lg'
                         />}
                     </Center>
                 </Box>
                 <Box>
                     <Heading size='xs'>
-                        {title}
+                        {name.label}
                     </Heading>
                     <Text pt='2' fontSize='sm'>
-                        by {author}
+                        by {artist.label}
                     </Text>
                 </Box>
                 <Box>
@@ -29,7 +29,7 @@ export const PodcastDetailsCard = ({ podcastDetails: { title, description, autho
                         Description:
                     </Heading>
                     <Text pt='2' fontSize='sm' fontStyle={"italic"}>
-                        {description}
+                        {summary.label}
                     </Text>
                 </Box>
             </Stack>

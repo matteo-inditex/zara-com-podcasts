@@ -11,17 +11,3 @@ export async function getJSON<TResponse>(
         throw (error);
     }
 }
-
-export async function getXML(
-    url: string,
-    config?: RequestInit,
-): Promise<Document> {
-    try {
-        const response = await fetch(url, config)
-        const text = await response.text()
-        return new window.DOMParser().parseFromString(text, "text/xml")
-    } catch (error) {
-        console.error(error);
-        throw (error);
-    }
-}
