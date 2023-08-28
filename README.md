@@ -4,10 +4,11 @@ An app that lets you view and play podcasts from iTunes.
 ## Engines
 - Node ^18.17.1 (current LTS)
 - Npm ^9.6.7
+  
 Tip: install nvm and get the current LTS node version
 
 ## Run Locally
-NOTE: You need inditex .npmrc configuration set up correctly because the project was created with that configuration even if no private package is used.
+~~NOTE: You need inditex .npmrc configuration set up correctly because the project was created with that configuration even if no private package is used.~~ FIXED by updating deps.
 
 Clone the project
 
