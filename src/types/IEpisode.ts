@@ -1,4 +1,4 @@
-import { EpisodeContentType, EpisodeFileExtension } from "./responses/getPodcastAPI";
+import { EpisodeContentType, EpisodeFileExtension } from "../services/podcasts/IEpisodeResponse"
 
 export interface IEpisode {
     guid?: string,

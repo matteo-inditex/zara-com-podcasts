@@ -8,8 +8,8 @@ import {
     Text,
     Link as ChakraLink
 } from "@chakra-ui/react";
-import { IEpisode } from "../services/types/mapped";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { IEpisode } from "../types";
 
 
 interface Props {

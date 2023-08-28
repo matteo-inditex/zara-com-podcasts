@@ -1,23 +1,4 @@
-
-export interface GetPodcastEpisodesResponseJSON {
-    contents: string,
-    status: Status
-}
-export interface Contents {
-    resultCount: number,
-    results: Result[]
-}
-
-interface Status {
-    url: string,
-    content_type: string,
-    http_code: string,
-    response_time: number,
-    content_length: number
-}
-
-
-export interface Result {
+export interface IEpisodeResponse {
     wrapperType: WrapperType;
     kind: Kind;
     collectionId: number;

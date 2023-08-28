@@ -15,7 +15,7 @@ export interface IPodcast {
     }
 }
 
-export interface Thumbnail {
+interface Thumbnail {
     label: string,
     attributes: {
         height: string

@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPodcastEpisodes, getPodcasts } from "../../services/podcasts-service";
+import { getPodcastEpisodes, getPodcasts } from "../../services/podcasts/podcasts-service";
 import { useParams } from "react-router-dom";
 import { useMemo } from "react";
-import { IEpisode } from "../../services/types/mapped";
 import PodcastDetailsCard from "../../components/PodcastDetailsCard";
 import { HStack, Spinner, Wrap, Text } from "@chakra-ui/react";
 import EpisodeCard from "../../components/EpisodeCard";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { IEpisode } from "../../types";
 
 
 const Episode = () => {

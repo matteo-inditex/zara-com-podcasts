@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { getPodcasts } from "../../services/podcasts-service";
-import PodcastOverviewCard from "../../components/PodcastOverviewCard";
+import { getPodcasts } from "../../services/podcasts/podcasts-service";
+import PodcastHomeCard from "../../components/PodcastHomeCard";
 import { Box, Center, Input, Stack, Grid, GridItem } from '@chakra-ui/react'
-import { getFilteredPodcasts } from "./query/query-utils";
+import { getFilteredPodcasts } from "./query/filters";
 import { Text } from '@chakra-ui/react'
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from '@chakra-ui/react'
@@ -10,7 +10,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 
 
 const Home = () => {
-    const { data, isLoading } = useQuery(["podcastsOverviews"], getPodcasts);
+    const { data, isLoading } = useQuery(["podcasts"], getPodcasts);
     const [query, setQuery] = useState("")
     const filteredPodcasts = useMemo(() => {
         if (data === undefined) {
@@ -30,7 +30,7 @@ const Home = () => {
                 <GridItem key={podcast.id}>
                     <Center>
                         <ReactRouterLink to={"/podcast/" + podcast.id}>
-                            <PodcastOverviewCard img={{
+                            <PodcastHomeCard img={{
                                 src: podcast.image.label,
                             }} title={podcast.name.label} subtitle={"Author: " + podcast.artist.label} />
                         </ReactRouterLink>

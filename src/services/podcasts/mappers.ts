@@ -1,7 +1,5 @@
-import { IPodcast } from "../../types";
-import { IEpisode } from "../types/mapped"
-import { Result } from "../types/responses/getPodcastAPI";
-import { GetPodcastsResponseJSON } from "../types/responses/getPodcastEpisodesAPI";
+import { IEpisode, IFeed, IPodcast } from "../../types";
+import { IEpisodeResponse } from "./IEpisodeResponse";
 
 function getParsedReleaseDate(dateText: string) {
     return new Date(dateText).toLocaleDateString("es-es")
@@ -24,8 +22,8 @@ function convertMsToHMS(milliseconds: number) {
     return showHours + showMinutes + showSeconds;
 }
 
-export function mapToIPodcasts(podcasts: GetPodcastsResponseJSON): IPodcast[] {
-    return podcasts.feed.entry.map(entry => ({
+export function mapToIPodcastList(feed: IFeed): IPodcast[] {
+    return feed.entry.map(entry => ({
         id: entry.id.attributes["im:id"],
         name: entry["im:name"],
         image: entry["im:image"][entry["im:image"].length - 1],
@@ -36,8 +34,8 @@ export function mapToIPodcasts(podcasts: GetPodcastsResponseJSON): IPodcast[] {
     }))
 }
 
-export function mapToEpisodes(results: Result[]): IEpisode[] {
-    return results.map(item => ({
+export function mapToIEpisodeList(episodeResponseList: IEpisodeResponse[]): IEpisode[] {
+    return episodeResponseList.map(item => ({
         guid: item.episodeGuid,
         trackId: item.trackId,
         trackName: item.trackName,

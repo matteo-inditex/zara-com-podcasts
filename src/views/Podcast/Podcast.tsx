@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPodcastEpisodes, getPodcasts } from "../../services/podcasts-service";
+import { getPodcastEpisodes, getPodcasts } from "../../services/podcasts/podcasts-service";
 import { useParams } from "react-router-dom";
 import { Wrap, Text, HStack, Spinner } from "@chakra-ui/react";
 import EpisodesTable from "../../components/EpisodesTable";

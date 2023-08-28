@@ -1,8 +1,4 @@
-export interface GetPodcastsResponseJSON {
-    feed: Feed;
-}
-
-interface Feed {
+export interface IFeed {
     author: Author;
     entry: Entry[];
     updated: Icon;

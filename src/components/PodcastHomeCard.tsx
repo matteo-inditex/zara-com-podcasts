@@ -8,7 +8,7 @@ interface Props {
     title: string,
     subtitle: string
 }
-export const PodcastOverviewCard = ({ img: { src, alt }, title, subtitle }: Props) => {
+export const PodcastHomeCard = ({ img: { src, alt }, title, subtitle }: Props) => {
     return <Card bg="#f9f9f9">
         <CardBody>
             <Center>
@@ -26,4 +26,4 @@ export const PodcastOverviewCard = ({ img: { src, alt }, title, subtitle }: Prop
     </Card>
 }
 
-export default PodcastOverviewCard;
+export default PodcastHomeCard;
