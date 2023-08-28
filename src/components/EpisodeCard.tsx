@@ -1,5 +1,5 @@
 import { Card, CardBody, VStack, Heading, Text } from "@chakra-ui/react";
-import { Media } from "../services/types/mapped";
+import { Media } from "../types/IEpisode";
 
 interface Props {
     trackName: string,
