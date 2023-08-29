@@ -1,7 +1,7 @@
 import { IEpisode, IPodcast, IFeed } from "../../types";
 import { AllCorsResponse, getAllCorsUrl } from "../utils/cors";
 import { getJSON } from "../utils/http";
-import { IEpisodeResponse } from "./IEpisodeResponse";
+import { IEpisodeResponse } from "../../types/IEpisodeResponse";
 import { mapToIEpisodeList, mapToIPodcastList } from "./mappers";
 import { getPodcastEpisodesUrl, getTop100UsPodcastsUrl } from "./urls";
 

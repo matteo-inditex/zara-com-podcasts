@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import RootLayout from "./layouts/RootLayout";
-import Podcast from "./views/Podcast/Podcast";
-import Home from "./views/Home/Home";
-import Episode from "./views/Episode/Episode";
+import RootLayout from "./RootLayout";
+import Podcast from "../views/Podcast/Podcast";
+import Home from "../views/Home/Home";
+import Episode from "../views/Episode/Episode";
 
-const Routing = () => {
+const Router = () => {
     return <Routes >
         <Route element={<RootLayout />}>
             <Route path="/" index element={<Home />} />
@@ -14,4 +14,4 @@ const Routing = () => {
     </Routes>
 }
 
-export default Routing;
+export default Router;

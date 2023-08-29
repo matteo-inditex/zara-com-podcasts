@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { IEpisode } from "../types";
+import { getEpisodeRoutePath } from "../routing/paths";
 
 
 interface Props {
@@ -34,7 +35,7 @@ const EpisodesTable = ({ podcastId, episodes }: Props) => {
                 </Thead>
                 <Tbody>
                     {episodes.map((episode) => <Tr key={episode.trackId} >
-                        <Td ><ChakraLink as={ReactRouterLink} to={"/podcast/" + podcastId + "/episode/" + episode.trackId}><Text maxWidth={"2xl"} whiteSpace={"initial"}>{episode.trackName}</Text></ChakraLink></Td>
+                        <Td ><ChakraLink as={ReactRouterLink} to={getEpisodeRoutePath(podcastId, episode.trackId)}><Text maxWidth={"2xl"} whiteSpace={"initial"}>{episode.trackName}</Text></ChakraLink></Td>
                         <Td><Text>{episode.releaseDate}</Text></Td>
                         <Td> <Text>{episode.duration}</Text></Td>
                     </Tr>)}

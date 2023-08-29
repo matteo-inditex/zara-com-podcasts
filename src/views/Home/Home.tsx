@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import { getPodcasts } from "../../services/podcasts/podcasts-service";
-import PodcastHomeCard from "../../components/PodcastHomeCard";
 import { Box, Center, Input, Stack, Grid, GridItem } from '@chakra-ui/react'
 import { getFilteredPodcasts } from "./query/filters";
 import { Text } from '@chakra-ui/react'
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from '@chakra-ui/react'
 import { Link as ReactRouterLink } from "react-router-dom";
+import { getPodcastRoutePath } from "../../routing/paths";
+import PodcastHomeCard from "../../components/cards/PodcastHomeCard";
 
 
 const Home = () => {
@@ -29,7 +30,7 @@ const Home = () => {
             {filteredPodcasts.map((podcast) =>
                 <GridItem key={podcast.id}>
                     <Center>
-                        <ReactRouterLink to={"/podcast/" + podcast.id}>
+                        <ReactRouterLink to={getPodcastRoutePath(podcast.id)}>
                             <PodcastHomeCard img={{
                                 src: podcast.image.label,
                             }} title={podcast.name.label} subtitle={"Author: " + podcast.artist.label} />

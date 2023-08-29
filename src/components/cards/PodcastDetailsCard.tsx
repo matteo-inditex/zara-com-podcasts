@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, Image, Center, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
-import { IPodcast as IPodcast } from "../types";
+import { IPodcast } from "../../types";
 interface Props {
     podcast: IPodcast
 }
