@@ -8,7 +8,7 @@ interface Props {
     media: Media
 }
 const EpisodeCard = ({ trackName, descriptionHTMLstring, media }: Props) => {
-    return <Card maxWidth={800} height={"fit-content"}>
+    return <Card maxWidth={700} height={"fit-content"}>
         <CardBody >
             <VStack mt='6' spacing='3'>
                 <Heading size='md' marginRight={"auto"}>{trackName}</Heading>
