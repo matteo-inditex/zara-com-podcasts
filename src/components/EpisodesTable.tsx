@@ -24,7 +24,7 @@ const EpisodesTable = ({ podcastId, episodes }: Props) => {
                 <Heading fontSize={"2xl"}>Episodes: {episodes.length}</Heading>
             </CardBody>
         </Card>
-        <TableContainer width={"full"} maxWidth={800}>
+        <TableContainer width={"full"} maxWidth={700}>
             <Table variant='striped' size={"sm"}>
                 <Thead >
                     <Tr>

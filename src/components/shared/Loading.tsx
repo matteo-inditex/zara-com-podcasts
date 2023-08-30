@@ -10,7 +10,7 @@ export default function Loading({ text }: Props) {
             <Text size={"md"} color={"#737373"}>
                 {text || ""}
             </Text>{" "}
-            <Spinner size={"sm"} color={"#737373"} />
+            <Spinner size={"md"} color={"#737373"} />
         </HStack>
     );
 }
