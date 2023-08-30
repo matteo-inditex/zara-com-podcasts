@@ -33,7 +33,9 @@ Start the server
 ```bash
   npm run dev
 ```
+App will be available on http://localhost/4173
 ## Build it and serve it
+### Important: before proceeding, quit the dev server by typing q on the terminal where you typed the previous commands. The dev server and the build server run on the same port (4173) to avoid CORS errors.
 ```bash
   npm run build
 ```
